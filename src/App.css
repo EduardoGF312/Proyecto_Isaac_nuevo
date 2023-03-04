@@ -3,7 +3,7 @@ body{
   padding: 0;
   color: dark;
   background-color: #e7e5e4;
-  /* overflow: hidden; */
+  overflow-x: hidden;
 }
 
 .elegantshadow {
@@ -152,17 +152,42 @@ iframe{
   text-align: left !important;
 }
 
+.datos2{
+  width: 100%;
+  position: relative;
+  left: 110%;
+  text-align: left !important;
+  transition: top 0.5s ease-out;
+}
+
 .google-button {
-  background-color: transparent;
+  background-color: rgb(235, 63, 63);
   border: transparent;
-  color: blue;
-  font-size: 1em;
-  width: 6%;
+  border-radius: 5%;
+  color: white;
+  transition: .2s all ease-in-out;
+}
+
+.google-button::after {
+  content: " Google";
+}
+
+.google-button:hover{
+  transform: scale(110%);
+  filter: drop-shadow(5px 10px 5px rgba(0, 0, 0, 0.8));
 }
 
 .facebook-login-button {
-  background-color: transparent;
+  background-color: #1877f2;
   border: transparent;
+  border-radius: 5%;
+  color: white;
+  transition: .2s all ease-in-out;
+}
+
+.facebook-login-button:hover {
+  transform: scale(110%);
+  filter: drop-shadow(5px 10px 5px rgba(0, 0, 0, 0.8));
 }
 
 .img-fa{

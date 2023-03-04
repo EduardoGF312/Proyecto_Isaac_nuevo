@@ -14,8 +14,9 @@ import FacebookLogin from 'react-facebook-login';
 function Login() {
 
     //CONFIGURACION DE GOOGLE
+    const [showGoogleData, setShowGoogleData] = useState(false);
     const [isSignedIn, setIsSignedIn] = useState(false);
-    const key_login = "889082775733-uft314q6mcdcam2in0dd7rd0nsq8uprc.apps.googleusercontent.com";
+    const key_login = "878979529663-pv6ea5gi30ioh9t8u524hshhhsg0erdi.apps.googleusercontent.com";
     const [user, setUser] = useState({});
     useEffect(() => {
         const start = () => {
@@ -28,11 +29,12 @@ function Login() {
 
     const logeado_exito = (respuesta_exitosa) => {
         setIsSignedIn(true);
+        setShowGoogleData(true);
         console.log("LOGUEADO CON ÉXITO:", respuesta_exitosa.profileObj);
         setUser(respuesta_exitosa.profileObj);
         Swal.fire({
             icon: 'success',
-            title: `BIENVENIDO APP UTD`,
+            title: `BIENVENIDO APP UTD CON GOOGLE`,
         })
     }
 
@@ -52,6 +54,7 @@ function Login() {
             title: `Sesión terminada, adios ${user.name}!`,
         })
         setIsSignedIn(false);
+        setShowGoogleData(false);
     }
 
     //CONFIGURACION DE FACEBOOK
@@ -66,6 +69,10 @@ function Login() {
         setName(response.name);
         setEmail(response.email);
         setPicture(response.picture.data.url);
+        Swal.fire({
+            icon: 'success',
+            title: `BIENVENIDO APP UTD CON FACEBOOK`,
+        })
     }
 
     const componentClicked = () => {
@@ -102,7 +109,7 @@ function Login() {
                 <Form.Group className='text-center'>
                     {isSignedIn ? (
                         <>
-                            <div className='datos'>
+                            <div className='datos' id='other-div' style={{ display: showGoogleData ? "block" : "none" }}>
                                 <h3 className='mb-3'>Tus credenciales de Google son:</h3>
                                 <img className='mb-3' src={user.imageUrl} alt="" />
                                 <p><b>Nombre:</b> {user.name}</p>
@@ -141,12 +148,12 @@ function Login() {
 
                     {isLoggedIn ? (
                         <>
-                        <div className='datos'>
-                            <h3 className='mb-3'>Tus credenciales de Facebook son:</h3>
-                            <img className="img-fa" src={picture} alt={name} />
-                            <p><b>Nombre: </b> {name}</p>
-                            <p><b>Correo electrónico:</b> {email}</p>
-                        </div>
+                            <div className='datos2' style={{ top: showGoogleData ? "-20px" : "-380px" }}>
+                                <h3 className='mb-3'>Tus credenciales de Facebook son:</h3>
+                                <img className="img-fa" src={picture} alt={name} />
+                                <p><b>Nombre: </b> {name}</p>
+                                <p><b>Correo electrónico:</b> {email}</p>
+                            </div>
                         </>
                     ) : (
                         <FacebookLogin
@@ -155,9 +162,9 @@ function Login() {
                             fields="name,email,picture"
                             onClick={componentClicked}
                             callback={responseFacebook}
-                            icon={<FontAwesomeIcon icon={faFacebook} color="blue" />}
-                            textButton=""
-                            cssClass="facebook-login-button"
+                            icon={<FontAwesomeIcon icon={faFacebook} color="white" />}
+                            textButton=" Facebook"
+                            cssClass="facebook-login-button ms-3"
                         />
 
                     )}
