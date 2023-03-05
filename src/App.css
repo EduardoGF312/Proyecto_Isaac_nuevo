@@ -3,7 +3,7 @@ body{
   padding: 0;
   color: dark;
   background-color: #e7e5e4;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .elegantshadow {
@@ -21,17 +21,27 @@ body{
 .home{
   font-size: 7em;
   margin-bottom: 5%;
+  transition: .2s all ease-in-out;
 }
 
 .nombre,
 .carrera {
   padding: 80px 20px;
-  font-size: 7em;
+  font-size: 6em;
   text-align: center;
+  transition: .2s all ease-in-out;
 }
 
 .escuela{
   font-size:15em;
+  transition: .2s all ease-in-out;
+}
+
+.home:hover,
+.nombre:hover,
+.carrera:hover,
+.escuela:hover{
+  transform: scale(110%);
 }
 
 .Logo{
@@ -69,7 +79,7 @@ iframe{
   margin-top: 2%;
   width: 15%;
   height: 80vh;
-  transition: 1s all ease;
+  transition: .5s all ease;
   filter: drop-shadow(20px 15px 5px rgba(0, 0, 0, 0.7));
 }
 
@@ -80,7 +90,7 @@ iframe{
 .carrusel{
   width: 100%;
   margin-top: 5%;
-  
+  filter: drop-shadow(15px 15px 5px rgba(0, 0, 0, 0.799));
 }
 
 .carousel-item img {
@@ -132,7 +142,7 @@ iframe{
 .Mockup{
   width: 70%;
   height: 80vh;
-  transition: 1s all ease;
+  transition: .5s all ease;
 }
 
 .Mockup:hover{
@@ -141,7 +151,6 @@ iframe{
 
 .formulario{
   position: relative;
-  left: -20%;
 }
 
 .datos{
@@ -161,7 +170,7 @@ iframe{
 }
 
 .google-button {
-  background-color: rgb(235, 63, 63);
+  background-color: rgb(235, 63, 63) !important;
   border: transparent;
   border-radius: 5%;
   color: white;
@@ -170,9 +179,24 @@ iframe{
 
 .google-button::after {
   content: " Google";
+  font-weight: bold;
 }
 
 .google-button:hover{
+  transform: scale(110%);
+  filter: drop-shadow(5px 10px 5px rgba(0, 0, 0, 0.8));
+}
+
+.google-logout{
+  background-color: rgb(235, 63, 63);
+  border: transparent;
+  border-radius: 5%;
+  color: white;
+  transition: .2s all ease-in-out;
+  font-weight: bold;
+}
+
+.google-logout:hover{
   transform: scale(110%);
   filter: drop-shadow(5px 10px 5px rgba(0, 0, 0, 0.8));
 }
@@ -183,6 +207,7 @@ iframe{
   border-radius: 5%;
   color: white;
   transition: .2s all ease-in-out;
+  font-weight: bold;
 }
 
 .facebook-login-button:hover {
@@ -192,5 +217,5 @@ iframe{
 
 .img-fa{
   width: 15%;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
 }

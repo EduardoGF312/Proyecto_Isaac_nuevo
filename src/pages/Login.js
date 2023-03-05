@@ -9,11 +9,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from 'react'
 import { gapi } from 'gapi-script'
 import FacebookLogin from 'react-facebook-login';
-
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 function Login() {
 
     //CONFIGURACION DE GOOGLE
+    const [mover, moverOno] = useState(true);
     const [showGoogleData, setShowGoogleData] = useState(false);
     const [isSignedIn, setIsSignedIn] = useState(false);
     const key_login = "878979529663-pv6ea5gi30ioh9t8u524hshhhsg0erdi.apps.googleusercontent.com";
@@ -28,6 +29,7 @@ function Login() {
     }, [])
 
     const logeado_exito = (respuesta_exitosa) => {
+        moverOno(false);
         setIsSignedIn(true);
         setShowGoogleData(true);
         console.log("LOGUEADO CON ÉXITO:", respuesta_exitosa.profileObj);
@@ -57,6 +59,14 @@ function Login() {
         setShowGoogleData(false);
     }
 
+    const handleLogoutClick = (event) => {
+        event.preventDefault();
+    };
+
+    const renderButton = ({ onClick }) => (
+        <button className="google-logout" onClick={(event) => { handleLogoutClick(event); onClick(); }}><FontAwesomeIcon icon={faSignOutAlt} /> Cerrar sesión de Google</button>
+    );
+
     //CONFIGURACION DE FACEBOOK
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [name, setName] = useState('');
@@ -73,16 +83,13 @@ function Login() {
             icon: 'success',
             title: `BIENVENIDO APP UTD CON FACEBOOK`,
         })
-    }
-
-    const componentClicked = () => {
-        console.log('Facebook button clicked');
+        moverOno(false);
     }
 
     return (
         <>
-            <h1 className='text-center mt-3'>APP PARCIAL II</h1>
-            <Form className='w-50 mx-auto mt-5 formulario'>
+            <h1 className='text-center'>APP PARCIAL II</h1>
+            <Form className='w-50 mt-3 formulario' style={{marginLeft: mover ? "320px" : "50px"}}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label className='fw-bold'>Correo Electronico: </Form.Label>
                     <Form.Control type="email" placeholder="Enter email" />
@@ -110,16 +117,18 @@ function Login() {
                     {isSignedIn ? (
                         <>
                             <div className='datos' id='other-div' style={{ display: showGoogleData ? "block" : "none" }}>
-                                <h3 className='mb-3'>Tus credenciales de Google son:</h3>
-                                <img className='mb-3' src={user.imageUrl} alt="" />
-                                <p><b>Nombre:</b> {user.name}</p>
-                                <p><b>Correo electrónico:</b> {user.email}</p>
+                                <h3>Tus credenciales de Google son:</h3>
+                                <img className='mb-1' src={user.imageUrl} alt="" />
+                                <p style={{ marginBottom: "1%" }}><b>Nombre:</b> {user.name}</p>
+                                <p style={{ marginBottom: "1%" }}><b>Correo electrónico:</b> {user.email}</p>
 
                                 <GoogleLogout
                                     clientId={key_login}
-                                    buttonText={"CERRAR SESIÓN"}
+                                    buttonText=''
                                     onLogoutSuccess={Logout}
                                     className='mt-1'
+                                    icon={false}
+                                    render={renderButton}
                                 />
                             </div>
 
@@ -148,10 +157,10 @@ function Login() {
 
                     {isLoggedIn ? (
                         <>
-                            <div className='datos2' style={{ top: showGoogleData ? "-20px" : "-380px" }}>
-                                <h3 className='mb-3'>Tus credenciales de Facebook son:</h3>
+                            <div className='datos2' style={{ top: showGoogleData ? "-105px" : "-380px" }}>
+                                <h3>Tus credenciales de Facebook son:</h3>
                                 <img className="img-fa" src={picture} alt={name} />
-                                <p><b>Nombre: </b> {name}</p>
+                                <p style={{ marginBottom: "1%" }}><b>Nombre: </b> {name}</p>
                                 <p><b>Correo electrónico:</b> {email}</p>
                             </div>
                         </>
@@ -160,7 +169,6 @@ function Login() {
                             appId="3332190267021210"
                             autoLoad={false}
                             fields="name,email,picture"
-                            onClick={componentClicked}
                             callback={responseFacebook}
                             icon={<FontAwesomeIcon icon={faFacebook} color="white" />}
                             textButton=" Facebook"
